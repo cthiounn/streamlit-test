@@ -11,7 +11,9 @@ from rembg import remove
 
 device = "cuda"
 pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
-    "lambdalabs/sd-pokemon-diffusers", torch_dtype=torch.float16
+    "lambdalabs/sd-pokemon-diffusers",
+    local_files_only=True,
+    torch_dtype=torch.float16
 )
 pipe = pipe.to(device)
 
