@@ -9,7 +9,7 @@ from io import BytesIO
 from rembg import remove
 
 
-device = "gpu"
+device = "cuda"
 pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
     "lambdalabs/sd-pokemon-diffusers", torch_dtype=torch.float16
 )
@@ -51,13 +51,14 @@ def imgGen2(img1):
         return images, False
 
     pipe.safety_checker = null_safety
+    with autocast("cuda"):
 
-    images = pipe(
-        n_samples * [prompt],
-        init_image=init_image_nobg,
-        strength=0.53,
-        guidance_scale=scale,
-    ).images
+        images = pipe(
+            n_samples * [prompt],
+            init_image=init_image_nobg,
+            strength=0.53,
+            guidance_scale=scale,
+        ).images
 
     grid = image_grid(images, rows=2, cols=2)
 
