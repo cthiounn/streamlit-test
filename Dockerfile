@@ -5,13 +5,13 @@ WORKDIR /app
 COPY . .
 # Installation of code dependencies
 RUN pip install -r requirements.txt
-
-RUN wget https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net.onnx
 WORKDIR /root/.u2net/
-COPY  u2net.onnx .
+ADD https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2net.onnx u2net.onnx
 
 
 WORKDIR /
-RUN curl -SL https://minio.lab.sspcloud.fr/cthiounn2/diffuser-pokemon.tar.gz | tar -xvf diffuser-pokemon.tar.gz -C /
-# Endpoint
+ADD https://minio.lab.sspcloud.fr/cthiounn2/diffuser-pokemon.tar.gz diffuser-pokemon.tar.gz 
+RUN tar -xvf diffuser-pokemon.tar.gz -C /root/
+RUN rm diffuser-pokemon.tar.gz 
+WORKDIR /app
 CMD ["streamlit", "run", "myapp.py"]
