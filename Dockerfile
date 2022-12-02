@@ -18,4 +18,4 @@ WORKDIR /app
 # Copy all the files of this project inside the container
 COPY . .
 
-CMD ["streamlit", "run", "myapp.py","--server.port", "3838"]
+CMD ["streamlit", "run", "pokemon_generation.py","--server.port", "3838"]

@@ -30,7 +30,7 @@ def image_grid(imgs, rows, cols):
 st.header("Turn your image into Pokémon")
 st.write("Choose any image and get corresponding Pokémon art:")
 
-uploaded_file = st.file_uploader("Choose an image...")
+
 
 
 def imgGen2(img1,vprompt,value):
@@ -40,7 +40,7 @@ def imgGen2(img1,vprompt,value):
     init_image_nobg = remove(init_image).convert("RGB")
     prompt = vprompt
     scale = 2
-    n_samples = 4
+    n_samples = 1
 
     # Sometimes the nsfw checker is confused by the Pokémon images, you can disable
     # it at your own risk here
@@ -58,7 +58,7 @@ def imgGen2(img1,vprompt,value):
             guidance_scale=scale,
         ).images
 
-    grid = image_grid(images, rows=2, cols=2)
+    grid = image_grid(images, rows=1, cols=1)
 
     return grid
 
@@ -66,6 +66,9 @@ caption = st.text_input('Prompt', "super cool electric fire rock Pokémon")
 values = st.slider(
     'Power of IA',
     0.0, 1.0,0.53)
+
+
+uploaded_file = st.file_uploader("Choose an image...")
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(uploaded_file, caption="Input Image", use_column_width=True)
