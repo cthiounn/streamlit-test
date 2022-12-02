@@ -7,7 +7,8 @@ RUN --mount=type=cache,target=/var/cache/ curl -SL  https://github.com/danielgat
 
 WORKDIR /
 RUN --mount=type=cache,target=/var/cache/ curl -SL https://minio.lab.sspcloud.fr/cthiounn2/diffuser-pokemon.tar.gz -o diffuser-pokemon.tar.gz 
-RUN tar -xvf diffuser-pokemon.tar.gz -C /root/ && rm diffuser-pokemon.tar.gz  && cp -rf /root/home/onyxia/.cache/* /root/.cache && rm -rf /root/home/onyxia/.cache/*
+RUN tar -xvf diffuser-pokemon.tar.gz --strip-components=2 -C /root/ && rm diffuser-pokemon.tar.gz  
+#&& cp -rf /root/home/onyxia/.cache/* /root/.cache && rm -rf /root/home/onyxia/.cache/*
 # Creation of a working directory app
 WORKDIR /app
 # Copy all the files of this project inside the container
