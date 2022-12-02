@@ -10,12 +10,12 @@ RUN --mount=type=cache,target=/var/cache/ curl -SL https://minio.lab.sspcloud.fr
 RUN tar -xvf diffuser-pokemon.tar.gz --strip-components=2 -C /root/ && rm diffuser-pokemon.tar.gz  
 #&& cp -rf /root/home/onyxia/.cache/* /root/.cache && rm -rf /root/home/onyxia/.cache/*
 # Creation of a working directory app
+
+COPY requirements.txt /tmp/
+RUN --mount=type=cache,target=/var/cache/pip pip install --requirement /tmp/requirements.txt
+
 WORKDIR /app
 # Copy all the files of this project inside the container
 COPY . .
-# Installation of code dependencies
-#ENV PIP_CACHE_DIR=/var/cache/buildkit/pip
-RUN --mount=type=cache,target=/var/cache/pip pip install -r requirements.txt
 
-WORKDIR /app
-CMD ["streamlit", "run", "myapp.py"]
+CMD ["streamlit", "run", "myapp.py","--server.port", "3838"]

@@ -1,7 +1,7 @@
 streamlit
 pillow==9.3.0
 numpy
-diffusers==0.3.0
+diffusers==0.8.0
 transformers
 ftfy
 rembg
